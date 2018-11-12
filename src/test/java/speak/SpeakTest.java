@@ -37,14 +37,14 @@ public class SpeakTest {
         test.awaitTerminalEvent();
         test.assertResult(
                 "Alice: A",
-                "Alice: B",
-                "Alice: C",
                 "Bob:   A",
-                "Bob:   B",
-                "Bob:   C",
                 "Jane:  A",
+                "Bob:   B",
                 "Jane:  B",
-                "Jane:  C"
+                "Alice: B",
+                "Bob:   C",
+                "Jane:  C",
+                "Alice:  C"
         ).awaitTerminalEvent();
     }
 }
