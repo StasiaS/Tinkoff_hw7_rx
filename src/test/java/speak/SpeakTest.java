@@ -2,13 +2,15 @@ package speak;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
-import io.reactivex.schedulers.Schedulers;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SpeakTest {
 
     private SpeakExercises exercises;
+
+    public SpeakTest() {
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -29,7 +31,7 @@ public class SpeakTest {
          */
 
         TestObserver<String> test = Observable
-                .merge(
+                .concat(
                         alice.map(w -> "Alice: " + w),
                         bob.map(w -> "Bob:   " + w),
                         jane.map(w -> "Jane:  " + w)
@@ -37,14 +39,14 @@ public class SpeakTest {
         test.awaitTerminalEvent();
         test.assertResult(
                 "Alice: A",
-                "Bob:   A",
-                "Jane:  A",
-                "Bob:   B",
-                "Jane:  B",
                 "Alice: B",
+                "Alice: C",
+                "Bob:   A",
+                "Bob:   B",
                 "Bob:   C",
-                "Jane:  C",
-                "Alice:  C"
+                "Jane:  A",
+                "Jane:  B",
+                "Jane:  C"
         ).awaitTerminalEvent();
     }
 }
